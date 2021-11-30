@@ -54,7 +54,7 @@ int Number_Of_Words(FILE * input)
     return count;
 }
 
-void get_main_Array(char ** argv, wchar_t ** MainArray)
+void get_main_Array(char ** argv, wchar_t ** main_array)
 {
     setlocale(LC_CTYPE, "ru_RU.UTF-8");
 
@@ -63,7 +63,6 @@ void get_main_Array(char ** argv, wchar_t ** MainArray)
     int sizeThen = 0;
 
     wchar_t * array;
-    wchar_t saveSymbol;
 
     FILE * input;
 
@@ -77,13 +76,11 @@ void get_main_Array(char ** argv, wchar_t ** MainArray)
         sizeThen = sizeNow;
         fgetws(array + sizeNow, fileSize, input);
         sizeNow = wcslen(array);
-        saveSymbol = *(array + sizeNow - 1);
         *(array + sizeNow - 1) = ' ';
     }
     while (sizeNow > sizeThen);
-    *(array + sizeNow - 1) = saveSymbol;
     
-    *MainArray = array;
+    *main_array = array;
     fclose(input);
 }
 
