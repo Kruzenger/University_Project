@@ -54,7 +54,7 @@ int Number_Of_Words(FILE * input)
     return count;
 }
 
-void get_main_Array(char ** argv, wchar_t ** main_array)
+void get_main_Array(char ** argv, wchar_t ** MainArray)
 {
     setlocale(LC_CTYPE, "ru_RU.UTF-8");
 
@@ -83,7 +83,7 @@ void get_main_Array(char ** argv, wchar_t ** main_array)
     while (sizeNow > sizeThen);
     *(array + sizeNow - 1) = saveSymbol;
     
-    *main_array = array;
+    *MainArray = array;
     fclose(input);
 }
 
