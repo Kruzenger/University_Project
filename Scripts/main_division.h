@@ -9,9 +9,10 @@ void division(wchar_t ** Word, int * VowelWord)
     int len = wcslen((*Word));
     wchar_t newWord[30];
 
-    int letterInNewWord = 0;
+    int letterInNewWord = 1;
 
-    for (int i = 0; (*Word)[i]; i++)
+    newWord[0] =  (*Word)[0];
+    for (int i = 1; (*Word)[i]; i++)
     {
         newWord[letterInNewWord] =  (*Word)[i];
         letterInNewWord++;
@@ -22,19 +23,21 @@ void division(wchar_t ** Word, int * VowelWord)
             {
                 if (VowelWord[i] == 3)
                 {
-                    if((VowelWord[i + 1] == 1 || VowelWord[i + 1] == 2) && 
-                        (VowelWord[i + 2] == 1 || VowelWord[i + 2] == 2)) // check for "Native rule"
-                    {
-                        newWord[letterInNewWord] =  (*Word)[i];
-                        letterInNewWord++;
-                        i++;
-                        newWord[letterInNewWord] = L'-';
-                        letterInNewWord++;                        
-                    }
-                    else
-                    {
-                        newWord[letterInNewWord] = L'-';
-                        letterInNewWord++;
+                    if(VowelWord[i + 1] != 3)
+                        if((VowelWord[i + 1] == 1 || VowelWord[i + 1] == 2) && 
+                            (VowelWord[i + 2] == 1 || VowelWord[i + 2] == 2)) // check for "Native rule"
+                        {
+                            newWord[letterInNewWord] =  (*Word)[i];
+                            letterInNewWord++;
+                            i++;
+                            newWord[letterInNewWord] = L'-';
+                            letterInNewWord++;                        
+                        }
+                        else
+                        {
+                            newWord[letterInNewWord] = L'-';
+                            letterInNewWord++;
+                        }
                     }
                 }
             }
