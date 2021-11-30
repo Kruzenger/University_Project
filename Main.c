@@ -56,6 +56,7 @@ int main(int argc, char ** argv)
                 2 goes to next part of word
                 if there are 2 letters of 1 or 2 we will devide them that way 21-02
             */
+            wcscat(ResultArray, Word);
             *(Word) = L'\0'; // make it empty for next word 
             letterInWord = 0;
         }
