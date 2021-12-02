@@ -68,7 +68,7 @@ void get_main_Array(char ** argv, wchar_t ** main_array)
 
     input = fopen(argv[1], "r");
     fileSize = fsize(input);
-    array = (wchar_t *)malloc(fileSize * 25);
+    array = (wchar_t *)calloc(fileSize, sizeof(wchar_t));
 
     input = fopen(argv[1], "r");
     do
