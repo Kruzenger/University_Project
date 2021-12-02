@@ -4,45 +4,50 @@
 #include <wchar.h>
 #include <wctype.h>
 
-void division(wchar_t ** Word, int * VowelWord)
+wchar_t * division(wchar_t * Word, int * VowelWord)
 {
-    int len = wcslen((*Word));
-    wchar_t newWord[30];
+    int len = wcslen(VowelWord);
 
-    int letterInNewWord = 1;
+    wchar_t * NewWord;
+    NewWord = (wchar_t *)malloc(30 * sizeof(wchar_t));
 
-    newWord[0] =  (*Word)[0];
-    for (int i = 1; (*Word)[i]; i++)
+    int letterInNewWord = 0;
+
+    for (int i = 0; *(Word + i) != L'\0'; i++)
     {
-        newWord[letterInNewWord] =  (*Word)[i];
+        *(NewWord + letterInNewWord) = *(Word + i);
         letterInNewWord++;
-
-        if (VowelWord[i] == 3) // found letter 3
+        
+        if (*(VowelWord + i) == 2) // found letter 2
         {
-            for (int j = i; (*Word)[i]; j++)
+            for (int j = i; *(Word + j) != L'\0'; j++)
             {
-                if (VowelWord[i] == 3)
+                if ((*(VowelWord + i + 1) != 2 || *(VowelWord + i + 1) == 1) && i + 1 < len)
                 {
-                    if(VowelWord[i + 1] != 3)
-                        if((VowelWord[i + 1] == 1 || VowelWord[i + 1] == 2) && 
-                            (VowelWord[i + 2] == 1 || VowelWord[i + 2] == 2)) // check for "Native rule"
+                    if(*(VowelWord + j) == 2)
+                    {
+                        if(*(VowelWord + i + 1) == 1 && *(VowelWord + i + 2) == 1) // check for "Native rule"
                         {
-                            newWord[letterInNewWord] =  (*Word)[i];
+                            *(NewWord + letterInNewWord) = *(Word + j + 1);
                             letterInNewWord++;
                             i++;
-                            newWord[letterInNewWord] = L'-';
+                            *(NewWord + letterInNewWord) = L'-';
                             letterInNewWord++;                        
                         }
                         else
                         {
-                            newWord[letterInNewWord] = L'-';
-                            letterInNewWord++;
+                            if(i != 0)
+                            {
+                                *(NewWord + letterInNewWord) = L'-';
+                                letterInNewWord++;
+                            }
                         }
+                        j = len + 1;
                     }
                 }
             }
-        }  
+        }
     }
-    
-    (*Word) = newWord;
+    wcscat(NewWord, L" ");
+    return NewWord;
 }

@@ -7,21 +7,25 @@
 
 int whatTypeOfChar()
 {
-	// return 1, 2, 3 according to the type
-	// Гласные - 3, 
-    // Сонорные - 2, 
+	// return 1, 2 according to the type
+	// Гласные - 2, 
     // Остальные - 1
 	return 0;
 }
 
-void upperVowel(wchar_t * word, int ** vowelWord)
+int * upperVowel(wchar_t * word)
 {
 	// transform words into numbers: 
 	// Example:
-	// "Яблоко" --> "321313"
-	int vowel[6] = {3, 2, 1, 3, 1, 3};
+	// "Яблоко" --> "211212"
+	int * vowel = (int*)calloc(6, sizeof(int));
+	
+	vowel[0] = 2;
+	vowel[1] = 1;
+	vowel[2] = 1;
+	vowel[3] = 2;
+	vowel[4] = 1;
+	vowel[5] = 2;
 
-	*(vowelWord) = vowel;
-
-	// Need to change vowelWord, not return!!!
+	return vowel;
 }
