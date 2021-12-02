@@ -16,6 +16,7 @@ int main(int argc, char ** argv)
     setlocale(LC_CTYPE, "ru_RU.UTF-8");
     wchar_t *MainArray;
     get_main_Array(argv, &MainArray);
+    int len = wcslen(MainArray);
     if( errno )
     {
         perror("Не удалось открыть файл\n");
@@ -25,7 +26,7 @@ int main(int argc, char ** argv)
     // Main part 
 
     wchar_t * ResultArray; // Here we will have our result array
-
+    ResultArray = (wchar_t *)calloc(len, sizeof(wchar_t)); 
     // Lets have different words from our text to get their rizing vowel and devide into parts
 
     wchar_t * Word;
@@ -35,7 +36,7 @@ int main(int argc, char ** argv)
     // We will seek for ' ' to know that it is an end of the word
 
     int letterInWord = 0;
-    for(int i = 0; MainArray[i]; i++)
+    for(int i = 0; i <= len; i++)
     {
         if(MainArray[i] != L' ')
         {
@@ -44,25 +45,27 @@ int main(int argc, char ** argv)
         }
         else
         {
-            upperVowel(Word, &VowelWord); // returns vowel word in vowelWord;
-            division(&Word, VowelWord); // devides vord into parts, according to vowelWord and returns devided word in word
+            Word[letterInWord] = MainArray[i];
+            Word[letterInWord] = L'\0';
+            VowelWord = upperVowel(Word); // returns vowel of word;
             /*
                 To devide word we will use "Правило Русского Языка: Восходящая гласность"
-                Than meens we will devide letters into 3 groups: 
-                Гласные - 3, 
-                Сонорные - 2, 
+                Than meens we will devide letters into 2 groups: 
+                Гласные - 2,  
                 Остальные - 1
-                Than we will devide that way 123-23-123, but we will devide more human-readable with help of "Native rules":
+                Than we will devide that way 112-12-121, but we will devide more human-readable with help of "Native rules":
                 2 goes to next part of word
-                if there are 2 letters of 1 or 2 we will devide them that way 21-02
+                if there are 2 letters of 1 we will devide them that way 21-12
             */
-            wcscat(ResultArray, Word);
+
+            Word = division(Word, VowelWord); 
+            wcscat(ResultArray, Word); // devides vord into parts, according to vowelWord and returns devided word
             *(Word) = L'\0'; // make it empty for next word 
             letterInWord = 0;
         }
     }
 
+    free(Word);
 
-
-    getOutputFile(argv, ResultArray);
+getOutputFile(argv, ResultArray);
 }
