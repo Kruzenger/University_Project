@@ -26,11 +26,11 @@ int main(int argc, char ** argv)
     // Main part 
 
     wchar_t * ResultArray; // Here we will have our result array
-    ResultArray = (wchar_t *)calloc(len, sizeof(wchar_t)); 
+    ResultArray = (wchar_t *)calloc(len + 100, sizeof(wchar_t)); 
     // Lets have different words from our text to get their rizing vowel and devide into parts
 
     wchar_t * Word;
-    Word = (wchar_t *)calloc(30, sizeof(wchar_t)); // Container for our word
+    Word = (wchar_t *)calloc(100, sizeof(wchar_t)); // Container for our word
     int * VowelWord; // Container for our vowel of word
 
     // We will seek for ' ' to know that it is an end of the word
