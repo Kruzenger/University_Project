@@ -66,7 +66,6 @@ int main(int argc, char ** argv)
             if(i / 25 == counter)
             {
                 wcscat(ResultArray, L"\n");
-                wprintf(L"%i", counter);
                 counter++;
             }
             letterInWord = 0;
