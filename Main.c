@@ -22,11 +22,11 @@ int main(int argc, char ** argv)
         perror("Не удалось открыть файл\n");
         exit(1);
     }
-
+    
     // Main part 
 
     wchar_t * ResultArray; // Here we will have our result array
-    ResultArray = (wchar_t *)calloc(len + 100, sizeof(wchar_t)); 
+    ResultArray = (wchar_t *)calloc(1000000, sizeof(wchar_t)); 
     // Lets have different words from our text to get their rizing vowel and devide into parts
 
     wchar_t * Word;
@@ -36,6 +36,8 @@ int main(int argc, char ** argv)
     // We will seek for ' ' to know that it is an end of the word
 
     int letterInWord = 0;
+
+    int counter = 1;
     for(int i = 0; i <= len; i++)
     {
         if(MainArray[i] != L' ')
@@ -61,11 +63,22 @@ int main(int argc, char ** argv)
             Word = division(Word, VowelWord); 
             wcscat(ResultArray, Word); // devides vord into parts, according to vowelWord and returns devided word
             *(Word) = L'\0'; // make it empty for next word 
+            if(i / 25 == counter)
+            {
+                wcscat(ResultArray, L"\n");
+                wprintf(L"%i", counter);
+                counter++;
+            }
             letterInWord = 0;
         }
     }
 
-    free(Word);
+    // ResultArray[len] = L'\0';
 
-getOutputFile(argv, ResultArray);
+    getOutputFile(argv, ResultArray);
+
+    free(Word);
+    free(VowelWord);
+    free(MainArray);
+    free(ResultArray);
 }
