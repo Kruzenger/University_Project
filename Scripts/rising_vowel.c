@@ -5,37 +5,77 @@
 #include <locale.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 #include "./rising_vowel.h"
 
-glas gl = {L'ё', L'у', L'е', L'ы', L'а', L'о', L'э', L'я', L'и', L'ю', L'Ё', L'У', L'Е', L'Ы', L'А', L'О', L'Э', L'Я', L'И', L'Ю'};
+glasl gll = {L'ё', L'у', L'е', L'ы', L'а', L'о', L'э', L'я', L'и', L'ю'};
+glasu glu = {L'Ё', L'У', L'Е', L'Ы', L'А', L'О', L'Э', L'Я', L'И', L'Ю'};
 // wchar_t ost[46] = {L'й', L'ц', L'к', L'н', L'г', L'ш', L'щ', L'з', L'х', L'ъ', L'ф', L'в', L'п', L'р', L'л', L'д', L'ж', L'ч', L'с', L'м', L'т', L'ь', L'б', L'Й', L'Ц', L'К', L'Н', L'Г', L'Ш', L'Щ', L'З', L'Х', L'Ъ', L'Ф', L'В', L'П', L'Р', L'Л', L'Д', L'Ж', L'Ч', L'С', L'М', L'Т', L'Ь', L'Б'};
-
+znaki zn = {L',',L';',L':',L'.', L'!',L'?',L'"',L'"',L'{',L'}',L'—',L'[',L']',L'(',L')',L'/',L'\\' ,L'@',L'#',L'^',L'*', L'<',L'>',L'~',L'$',L'%',L'+',L'='};
 int * upperVowel(wchar_t * word)
 {
+    bool cranch = false;
+    bool obr = false;
     long len = wcslen(word);
     int * vowel = (int*)calloc(len, sizeof(int));
     for (int i = 0 ; i < len; i++)
-    {
-        for (int j = 0 ; j < 20 ; j++) 
+    {   
+        cranch = false;
+        for (int k = 0 ; k < 28 ; k++)
         {
-            if (word[i] == gl[j])
+            if (word[i] == zn[k])
             {
-                vowel[i] = 2;
-                j = 20;
+                vowel[i]= 4;
+                k = 28;
+                cranch = true;
             }
-            else
+        }
+
+        if(!cranch)
+        {
+            for (int j = 0 ; j < 20 ; j++) 
             {
-                if(word[i] == L'ъ' || word[i] == L'ь')
+                if (j < 10 && word[i] == gll[j])
                 {
-                    vowel[i] = 3;
+                    vowel[i] = 2;
+                    j = 20;
                 }
-                else
+                else if(word[i] == glu[j - 10] && j >= 10)
                 {
-                    vowel[i] = 1;   
+                    if(i == 0)
+                    {
+                        vowel[i] = 2;
+                        j = 20;
+                    }
+                    else
+                    {
+                        obr = true;
+                        i = len + 1;
+                        j = 20;
+                    }
+                }    
+                else{
+                    if(word[i] == L'ъ' || word[i] == L'ь')
+                    {
+                        vowel[i] = 3;
+                    }
+                    else
+                    {
+                        vowel[i] = 1;   
+                    }
                 }
             }
         }
     }
+
+    if(obr)
+    {
+        for (int i = 0 ; i < len; i++)
+        {   
+            vowel[i] = 1;
+        }
+    }
+
     return vowel;
 }

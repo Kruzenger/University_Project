@@ -6,6 +6,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-typedef wchar_t glas[20];
+typedef wchar_t glasl[10];
+typedef wchar_t glasu[10];
+typedef wchar_t znaki[28];
 
 int * upperVowel(wchar_t * word);
