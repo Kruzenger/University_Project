@@ -14,12 +14,23 @@ int * upperVowel(wchar_t * word)
     int * vowel = (int*)calloc(len, sizeof(int));
     for (int i = 0 ; i < len; i++)
     {
-        for (int j = 0 ; j < 20 ; j++) {
-            if (word[i] == gl[j]){
+        for (int j = 0 ; j < 20 ; j++) 
+        {
+            if (word[i] == gl[j])
+            {
                 vowel[i] = 2;
+                j = 20;
             }
-            else{
-                vowel[i] = 1;
+            else
+            {
+                if(word[i] == L'ъ' || word[i] == L'ь')
+                {
+                    vowel[i] = 3;
+                }
+                else
+                {
+                    vowel[i] = 1;   
+                }
             }
         }
     }
