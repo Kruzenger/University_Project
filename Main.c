@@ -48,7 +48,7 @@ int main(int argc, char ** argv)
         else
         {
             Word[letterInWord] = MainArray[i];
-            Word[letterInWord] = L'\0';
+            Word[letterInWord + 1] = L'\0';
             VowelWord = upperVowel(Word); // returns vowel of word;
             /*
                 To devide word we will use "Правило Русского Языка: Восходящая гласность"
@@ -63,7 +63,7 @@ int main(int argc, char ** argv)
             Word = division(Word, VowelWord); 
             wcscat(ResultArray, Word); // devides vord into parts, according to vowelWord and returns devided word
             *(Word) = L'\0'; // make it empty for next word 
-            if(i / 25 == counter)
+            if(i / 35 == counter)
             {
                 wcscat(ResultArray, L"\n");
                 counter++;
