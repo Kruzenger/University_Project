@@ -24,13 +24,12 @@ int main(int argc, char ** argv)
     }
     
     // Main part 
-
     wchar_t * ResultArray; // Here we will have our result array
     ResultArray = (wchar_t *)calloc(1000000, sizeof(wchar_t)); 
     // Lets have different words from our text to get their rizing vowel and devide into parts
 
     wchar_t * Word;
-    Word = (wchar_t *)calloc(100, sizeof(wchar_t)); // Container for our word
+    Word = (wchar_t *)calloc(1024, sizeof(wchar_t)); // Container for our word
     int * VowelWord; // Container for our vowel of word
 
     // We will seek for ' ' to know that it is an end of the word
@@ -47,8 +46,8 @@ int main(int argc, char ** argv)
         }
         else
         {
-            Word[letterInWord] = MainArray[i];
-            Word[letterInWord + 1] = L'\0';
+            // Word[letterInWord] = MainArray[i];
+            Word[letterInWord] = L'\0';
             VowelWord = upperVowel(Word); // returns vowel of word;
             /*
                 To devide word we will use "Правило Русского Языка: Восходящая гласность"
@@ -62,7 +61,7 @@ int main(int argc, char ** argv)
 
             Word = division(Word, VowelWord); 
             wcscat(ResultArray, Word); // devides vord into parts, according to vowelWord and returns devided word
-            *(Word) = L'\0'; // make it empty for next word 
+            *(Word) = L'\0'; // make it empty for next word
             if(i / 35 == counter)
             {
                 wcscat(ResultArray, L"\n");
@@ -71,8 +70,6 @@ int main(int argc, char ** argv)
             letterInWord = 0;
         }
     }
-
-    // ResultArray[len] = L'\0';
 
     getOutputFile(argv, ResultArray);
 
