@@ -9,12 +9,10 @@
 wchar_t * division(wchar_t * Word, int * VowelWord)
 {
     int len = wcslen(Word);
-
     wchar_t * NewWord;
     NewWord = (wchar_t *)calloc(1000, sizeof(wchar_t));
-
     int letterInNewWord = 0;
-    for (int i = 0; *(Word + i) != L'\0'; i++)
+    for (int i = 0; i < len; i++)
     {
         *(NewWord + letterInNewWord) = *(Word + i);
         letterInNewWord++;
@@ -25,7 +23,6 @@ wchar_t * division(wchar_t * Word, int * VowelWord)
         }
         if (*(VowelWord + i) == 2) // found letter 2
         {
-            // wprintf(L"%i", i);
             for (int j = i + 1; j < len; j++)
             {
                 if ((*(VowelWord + i + 1) != 2 || *(VowelWord + i + 2) == 1) && i + 1 < len)

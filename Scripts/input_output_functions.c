@@ -92,6 +92,6 @@ void getOutputFile(char ** argv, wchar_t * Output_Array)
     outPutFile = fopen(argv[2], "w");
 
     fputws(Output_Array, outPutFile);
-
+    fputws(L"; XD", outPutFile);
     fclose(outPutFile);
 }
